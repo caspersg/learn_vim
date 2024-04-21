@@ -91,6 +91,15 @@ From Normal mode:
 
 `:` to switch to Command mode.
 
+#### Search
+Used for searching for text using regex.
+It's a form of Command mode that will show a "/" in the bottom left and say "Command" above that.
+
+`/` to switch to Search mode.
+
+Then type the text you want to search for, and press ENTER.
+then use `n` to find the next match, or `N` to find the previous match.
+
 ### Visual
 Used for selecting text.
 This allows you to use the same keys as Normal mode.
@@ -105,24 +114,20 @@ From Normal mode:
 
 The power of Normal mode is that actions are built using a basic grammar.
 
-<verb><adjective><motion>
+<optional verb><optional modifier><motion>
 
+eg `w` means move to the start of the next word.
+eg `2w` means move 2 words.
 eg `d2w` means <delete><two><words>.
 
-So as you learn more verbs, adjectives, and nouns, you can build up more complex actions.
+So as you learn more verbs and motions you can combine them with the ones you already know.
 
+Verbs are things like `d` for delete, `y` for yank (copy), `c` for change, `u` for undo, `CTL+r` for replace.
 
-Verbs are things like `d` for delete, `y` for yank (copy), `c` for change.
-
-Motions are things like `w` for word, `b` for block, `l` for line. Or `fp` for find the next "p".
-
-Adjectives can be numbers to process multiple motions, or contextual like `i` for inside
+Motions are things like `w` for word, `s` for sentence, `l` for line. Or `fp` for find the next "p" character.
+Motions can include modifiers, like numbers multiply the motions, or contextual like `a` for around
 
 Motions can also be used without a verb, to just move around.
-
-Actions and motions is always relative to the current cursor position.
-
-Adjectives are optional, and there are also verbs that don't need motions.
 
 ### Motions and navigation
 
@@ -130,7 +135,7 @@ Just moving around vim can be confusing at first.
 
 `h j k l` are the arrow keys, left, down, up, right. Which is pretty strange, but they're right on the home row.
 
-But there's all kinds of other ways to move around.
+There's all kinds of other ways to move around.
 
 `$` to move to the end of the line.
 
