@@ -1,9 +1,10 @@
 # learn_vim
-Resources for learning vim
+Resources for learning vi/vim/neovim editors and vim modes in other editors.
 
 ## Exit vim
+Quiting vim can be the most confusing part to start with.
+
 Vim has multiple modes, so depending on which mode you're in you might need to try a few options to exit.
-So this can be the most confusing part of vim to start with.
 
 `ESC` press the Escape key. At the bottom left it should say "Normal".
 
@@ -13,28 +14,44 @@ So this can be the most confusing part of vim to start with.
 
 If none of that works, try:
 
-`C-c` If you see the colon, and it also says "Normal".
+`CTRL+c` If you see the colon, and it also says "Normal".
 
-`C-z` if you're really stuck you can suspend vim and go back to the terminal.
+`CTRL+z` if you're really stuck you can suspend vim and go back to the terminal.
 
 ## Key
-`C-c` means hold down the Control key and press c. This can also be written `<C-c>`.
+`CTRL+c` means hold down the Control key and press c.
 
-`S-c` means hold down the Shift key and press c, same as typing a capital C. This can also be written `<S-c>`.
+`SHIFT+c` means hold down the Shift key and press c, same as typing a capital C.
 
 `ESC` means press is the escape key.
 
-`CR` means press the Enter key, (Carriage Return).
+`ENTER` means press the Enter key.
 
 `yaw` means press y, then a, then w.
 
 ## Modes
 
-Vim has various modes, with each mode being used for different tasks.
+Other editors default to entering text. Then you hold down modifier keys to temporarily perform other actions.
+
+But in vim, you default to giving the editor actions, then switch modes to enter text.
+
+So for example in vscode, to copy 2 words, you might:
+
+- hold SHIFT to select
+- hold ALT to move by word
+- press right arrow twice to select 2 words
+- then hold CMD then press "c" to copy
+
+In vim, you might:
+
+- type `y2w` to yank (copy) 2 words
+
+Vim has various modes, with each mode being used for different kinds of tasks.
 
 Note: You won't get much feedback from different actions, vim will just do what you tell it to.
 
-### Basics for changing mode
+
+### Basics for switching mode
 
 ```mermaid
 flowchart TD
@@ -49,11 +66,13 @@ flowchart TD
 ### Normal
 Used for navigation and editing text. You can't actually type text in this mode, which will seem strange at first. But for coding, this is actually the most useful mode. That's why it's called normal mode.
 
+Normal mode is your home base, and you'll go into other modes from there.
+
 In other editors, you hold down combinations of Control,Shirt,Alt, and Super/Command/Windows keys to do these actions.
 
 From other modes:
 
-`ESC` to enter Normal mode.
+`ESC` to get back to Normal mode.
 
 
 ### Insert
@@ -69,7 +88,7 @@ Things like saving, quiting, opening files or enabling options.
 
 It shows a `:` in the bottom left, and you type out the command then press Enter to run it.
 
-In other editors, you often use a menu, or a command palette with Control+Shift+p (C-S-p) to run these commands.
+In other editors, you often use a menu, or a command palette with Control+Shift+p to run these commands.
 
 From Normal mode:
 
@@ -78,7 +97,6 @@ From Normal mode:
 ### Visual
 Used for selecting text.
 This allows you to use the same keys as Normal mode.
-This can be by character, whole lines, or a block.
 
 In other editors, you use the mouse to drag and select things, or hold down shift as you select the text.
 
@@ -87,22 +105,35 @@ From Normal mode:
 `v` to enter visual mode by character.
 
 
-### More advanced mode changes
+### More advanced mode switching
 
 When there are multiple options, they are separated with a space.
-eg `i a o` means either i, a, or o.
+eg `i a o` means either "i" or "a" or "o"
 
 ```mermaid
 flowchart TD
-    Insert -- "&nbsp;ESC&nbsp;" --> Normal
-    Normal -- "&nbsp;i a o&nbsp;" --> Insert
-    Normal -- "&nbsp;:&nbsp;" --> Command
-    Normal -- "&nbsp;v V C-v&nbsp;" --> Visual
-    Visual -- "&nbsp;ESC&nbsp;" --> Normal
-    Command -- "&nbsp;qa!&nbsp;" --> ExitVim
-    Command -- "C-f" --> CommandLineWindow
-    CommandLineWindow -- "C-c" --> Command
+    Insert -- "&nbsp; ESC &nbsp;" --> Normal
+    Normal -- "&nbsp; i I a A o O &nbsp;" --> Insert
+    Normal -- "&nbsp; : &nbsp;" --> Command
+    Normal -- "&nbsp; v &nbsp;" --> VisualCharacter
+    Normal -- "&nbsp; V &nbsp;" --> VisualLine
+    Normal -- "&nbsp; CTRL+v &nbsp;" --> VisualBlock
+    VisualCharacter -- "&nbsp; ESC &nbsp;" --> Normal
+    VisualLine -- "&nbsp; ESC &nbsp;" --> Normal
+    VisualBlock -- "&nbsp; ESC &nbsp;" --> Normal
+    Command -- "&nbsp; qa! &nbsp;" --> ExitVim
 ```
+
+#### Visual line and block
+Visual mode is by character, but it can also be by whole lines, or a block.
+
+From Normal mode:
+
+`v` to enter visual mode by character.
+
+`V` (`SHIFT+v`) to enter line visual mode.
+
+`CTRL+v` to enter block visual mode.
 
 ### Special Modes
 You'll probably want to avoid these.
@@ -111,12 +142,16 @@ You'll probably want to avoid these.
 
 Used to edit your history of commands, allowing you to use Normal mode keys to navigate and edit the commands.
 
-`C-c` Control+c to exit this mode.
+It will show a colon ":" and say "Normal".
+
+`CTRL+c` to exit this mode. Then press ESC to get back to Normal mode.
 
 #### Ex
 Emulates the very old "ed" editor.
 
-`:q` type q then press Enter, to exit this mode.
+It will show a colon ":", but ESC doesn't work.
+
+`:q` you'll see a colon, type q then press Enter, to exit this mode.
 
 ## Links
 https://www.fusionbox.com/blog/detail/vim-survival-guide/609/
