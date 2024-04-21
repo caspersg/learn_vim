@@ -10,7 +10,7 @@ Vim has multiple modes, so depending on which mode you're in you might need to t
 
 `:` press the colon key. You should see a colon in the bottom left. It should say "Command" just above the ":".
 
-`qa!` type "qa!" then press Enter. This will quit all windows without saving.
+`qa!` type "qa!" then press ENTER. This will quit all windows without saving.
 
 If none of that works, try:
 
@@ -25,7 +25,7 @@ If none of that works, try:
 
 `ESC` means press is the escape key.
 
-`ENTER` means press the Enter key.
+`ENTER` means press the ENTER key.
 
 `yaw` means press y, then a, then w.
 
@@ -38,7 +38,7 @@ But in vim, you default to giving the editor actions, then switch modes to enter
 So for example in vscode, to copy 2 words, you might:
 
 - hold SHIFT to select
-- hold ALT to move by word
+- hold OPTION to move by word
 - press right arrow twice to select 2 words
 - then hold CMD then press "c" to copy
 
@@ -47,9 +47,6 @@ In vim, you might:
 - type `y2w` to yank (copy) 2 words
 
 Vim has various modes, with each mode being used for different kinds of tasks.
-
-Note: You won't get much feedback from different actions, vim will just do what you tell it to.
-
 
 ### Basics for switching mode
 
@@ -68,7 +65,7 @@ Used for navigation and editing text. You can't actually type text in this mode,
 
 Normal mode is your home base, and you'll go into other modes from there.
 
-In other editors, you hold down combinations of Control,Shirt,Alt, and Super/Command/Windows keys to do these actions.
+In other editors, you hold down combinations of Control,Shirt,Option, Command, and other keys to do these actions.
 
 From other modes:
 
@@ -80,19 +77,19 @@ Used for actually typing text.
 
 From Normal mode:
 
-`i` to enter Insert mode.
+`i` to switch to Insert mode.
 
 ### Command
 Used for giving the editor commands.
 Things like saving, quiting, opening files or enabling options.
 
-It shows a `:` in the bottom left, and you type out the command then press Enter to run it.
+It shows a `:` in the bottom left, and you type out the command then press ENTER to run it.
 
 In other editors, you often use a menu, or a command palette with Control+Shift+p to run these commands.
 
 From Normal mode:
 
-`:` to enter Command mode.
+`:` to switch to Command mode.
 
 ### Visual
 Used for selecting text.
@@ -102,18 +99,64 @@ In other editors, you use the mouse to drag and select things, or hold down shif
 
 From Normal mode:
 
-`v` to enter visual mode by character.
+`v` to switch to visual mode by character.
+
+## The vim language
+
+The power of Normal mode is that actions are built using a basic grammar.
+
+<verb><adjective><motion>
+
+eg `d2w` means <delete><two><words>.
+
+So as you learn more verbs, adjectives, and nouns, you can build up more complex actions.
 
 
-### More advanced mode switching
+Verbs are things like `d` for delete, `y` for yank (copy), `c` for change.
+
+Motions are things like `w` for word, `b` for block, `l` for line. Or `fp` for find the next "p".
+
+Adjectives can be numbers to process multiple motions, or contextual like `i` for inside
+
+Motions can also be used without a verb, to just move around.
+
+Actions and motions is always relative to the current cursor position.
+
+Adjectives are optional, and there are also verbs that don't need motions.
+
+### Motions and navigation
+
+Just moving around vim can be confusing at first.
+
+`h j k l` are the arrow keys, left, down, up, right. Which is pretty strange, but they're right on the home row.
+
+But there's all kinds of other ways to move around.
+
+`$` to move to the end of the line.
+
+`0` to move to the start of the line.
+
+`^` to move to the first non-whitespace character of the line.
+
+`{ }` to move to the start of the previous/next paragraph.
+
+`w b` to move by forwards and backwards by a word, defined by punctuation.
+
+`W B` to move by word, defined by spaces.
+
+`%` to move to the matching bracket/braces/parens.
+
+
+
+## More ways to switch modes
 
 When there are multiple options, they are separated with a space.
-eg `i a o` means either "i" or "a" or "o"
+eg `i o` means either "i" or "o"
 
 ```mermaid
 flowchart TD
     Insert -- "&nbsp; ESC &nbsp;" --> Normal
-    Normal -- "&nbsp; i I a A o O &nbsp;" --> Insert
+    Normal -- "&nbsp; i I A o O C &nbsp;" --> Insert
     Normal -- "&nbsp; : &nbsp;" --> Command
     Normal -- "&nbsp; v &nbsp;" --> VisualCharacter
     Normal -- "&nbsp; V &nbsp;" --> VisualLine
@@ -124,16 +167,32 @@ flowchart TD
     Command -- "&nbsp; qa! &nbsp;" --> ExitVim
 ```
 
-#### Visual line and block
+### More ways to Insert
+
+`i` to enter text before the cursor.
+
+`I` to enter text at the start of the line.
+
+`A` to enter text at the end of the line.
+
+`o` to enter text in a new line below.
+
+`O` to enter text in a new line above.
+
+`C` to change the rest of the line
+
+
+
+### Visual line and block
 Visual mode is by character, but it can also be by whole lines, or a block.
 
 From Normal mode:
 
-`v` to enter visual mode by character.
+`v` to switch to visual mode by character.
 
-`V` (`SHIFT+v`) to enter line visual mode.
+`V` (`SHIFT+v`) to switch to line visual mode.
 
-`CTRL+v` to enter block visual mode.
+`CTRL+v` to switch to block visual mode.
 
 ### Special Modes
 You'll probably want to avoid these.
@@ -151,10 +210,12 @@ Emulates the very old "ed" editor.
 
 It will show a colon ":", but ESC doesn't work.
 
-`:q` you'll see a colon, type q then press Enter, to exit this mode.
+`:q` you'll see a colon, type q then press ENTER, to exit this mode.
 
 ## Links
-https://www.fusionbox.com/blog/detail/vim-survival-guide/609/
+[ Vim Survival Guide ]( https://www.fusionbox.com/blog/detail/vim-survival-guide/609/ )
+
+[Learning Vim in 2014: Vim as Language](https://benmccormick.org/2014/07/02/062700.html)
 
 ## vim tutor
 in vim press Escape, then type:
