@@ -1,50 +1,49 @@
 # learn_vim
-Resources for learning vi/vim/neovim editors and vim modes in other editors.
+The most important information:
 
-## Exit vim
-Quiting vim can be the most confusing part to start with.
+[How to exit vim](#exit-vim)
 
-Vim has multiple modes, so depending on which mode you're in you might need to try a few options to exit.
+[How to pair with vim](#how-to-exit-vim)
 
-`ESC` press the Escape key. At the bottom left it should say "Normal".
+The following should work for neovim, vim, vi, and vim plugins for other editors too. But I'll use vim to refer to all of them.
 
-`:` press the colon key. You should see a colon in the bottom left. It should say "Command" just above the ":".
+## Getting started
 
-`qa!` type "qa!" then press ENTER. This will quit all windows without saving.
+The easiest option is to add vim mode to whatever editor or IDE you're currently using.
+That way you learn vim at your own pace, and are less likely to get overwhelmed: eg, 
+[vscodevim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) or
+[IdeaVim](https://www.jetbrains.com/help/idea/using-product-as-the-vim-editor.html).
 
-If none of that works, try:
-
-`CTRL+c` If you see the colon, and it also says "Normal".
-
-`CTRL+z` if you're really stuck you can suspend vim and go back to the terminal.
-
-## Key
-`CTRL+c` means hold down the Control key and press c.
-
-`SHIFT+c` means hold down the Shift key and press c, same as typing a capital C.
-
-`ESC` means press is the escape key.
-
-`ENTER` means press the ENTER key.
-
-`yaw` means press y, then a, then w.
+If you want to dive into the deep end and try it as your main editor, follow these steps to setup neovim:
+[nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
 
 ## Modes
 
-Other editors default to entering text. Then you hold down modifier keys to temporarily perform other actions.
+Other editors default to entering text. This makes sense at first, surely the most important thing is typing text in an editor?
 
-But in vim, you default to giving the editor actions, then switch modes to enter text.
+But in vim, you default to giving the editor actions, then switch modes to enter text. The idea is that *editing* text is the more important part. You *edit* text by naviating around a document and modifying the existing text.
 
-So for example in vscode, to copy 2 words, you might:
+So for example in vscode to modify the next two words, you might:
 
-- hold SHIFT to select
-- hold OPTION to move by word
-- press right arrow twice to select 2 words
-- then hold CMD then press "c" to copy
+- hold SHIFT + hold OPTION + press right arrow twice to select 2 words
+- then type the replacement text, overwriting the selected text
 
-In vim, you might:
+Instead of thinking of the first step as a key combination, you can think of each modifier key you hold down as temporarily switching to a different mode.
+- SHIFT changes to selecting text mode.
+- OPTION changes arrows to move by words rather than characters.
+- Once you release these modifier keys, you're back to entering text.
 
-- type `y2w` to yank (copy) 2 words
+In vim you're always in a specific mode, and you explicitly switch between them.
+In vim to modify the next two words, you might:
+
+- type `c2w`
+- then type the replacement text
+- then press ESC to switch back to Normal mode
+
+The `c` part switches modes, so you can type out the replacement text.
+The `2w` part indicates what text you want to modify.
+As you type out the above, vim waits until you've finished typing a whole command, then executes it all at once.
+It has a specific grammar for actions, so it doesn't need to wait a specified amount of time or for an ENTER.
 
 Vim has various modes, with each mode being used for different kinds of tasks.
 
@@ -64,6 +63,8 @@ flowchart TD
 Used for navigation and editing text. You can't actually type text in this mode, which will seem strange at first. But for coding, this is actually the most useful mode. That's why it's called normal mode.
 
 Normal mode is your home base, and you'll go into other modes from there.
+
+Actions in normal mode are typed out normally and do not require ENTER to run.
 
 In other editors, you hold down combinations of Control,Shirt,Option, Command, and other keys to do these actions.
 
@@ -225,3 +226,41 @@ It will show a colon ":", but ESC doesn't work.
 ## vim tutor
 in vim press Escape, then type:
 `:Tutor`
+
+## How to pair with vim
+Some basic commands to get by when pairing with someone who uses vim.
+Ask them to enable the arrow keys, so you can do basic navigation,
+Ask them to enable the mouse, so you can scroll and click around.
+And ask them to enable the operating system clipboard, so you can copy and paste.
+
+When in Normal mode:
+
+`i` then start typing
+
+`ESC` back to normal mode
+
+`u` undo
+
+`CTRL+r` redo
+
+`:w` save
+
+`:e filename` to edit a file
+
+
+## Exit vim
+Quiting vim can be the most confusing part to start with.
+
+Vim has multiple modes, so depending on which mode you're in you might need to try a few options to exit.
+
+`ESC` press the Escape key. At the bottom left it should say "Normal".
+
+`:` press the colon key. You should see a colon in the bottom left. It should say "Command" just above the ":".
+
+`qa!` type "qa!" then press ENTER. This will quit all windows without saving.
+
+If none of that works, try:
+
+`CTRL+c` If you see the colon, and it also says "Normal".
+
+`CTRL+z` if you're really stuck you can suspend vim and go back to the terminal.
