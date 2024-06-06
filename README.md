@@ -115,20 +115,33 @@ From Normal mode:
 
 The power of Normal mode is that actions are built using a basic grammar.
 
-<optional verb><optional modifier><motion>
+`<optional verb><optional modifier><motion>`
 
 eg `w` means move to the start of the next word.
 eg `2w` means move 2 words.
-eg `d2w` means <delete><two><words>.
+eg `d2w` means delete two words.
 
-So as you learn more verbs and motions you can combine them with the ones you already know.
-
-Verbs are things like `d` for delete, `y` for yank (copy), `c` for change, `u` for undo, `CTL+r` for replace.
+Verbs are things like `d` for delete, `y` for yank (copy), `c` for change, `u` for undo, `CTL+r` for redo.
 
 Motions are things like `w` for word, `s` for sentence, `l` for line. Or `fp` for find the next "p" character.
 Motions can include modifiers, like numbers multiply the motions, or contextual like `a` for around
 
 Motions can also be used without a verb, to just move around.
+
+So as you learn more verbs and motions you can combine them with the ones you already know.
+And when as you use them, you'll start to think in terms of these higher level actions.
+
+So you might want to modify the text inside the next set of parentheses.
+Which can be done with `ci(`, aka change inside parentheses.
+
+Or you might want to copy the next block of code, and paste it at the bottom of the file.
+Which can be done with `yapGp`, aka yank around paragraph, go to the end of the file, paste.
+
+Or you might want to change all the text up to a certain word.
+Which can be done with `c/foo<ENTER>`, aka change until the next "foo" word.
+
+In this way, vim provides a language to think in for editing text.
+And those thoughts can be directly actioned.
 
 ### Motions and navigation
 
