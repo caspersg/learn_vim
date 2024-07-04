@@ -231,10 +231,12 @@ It will show a colon ":", but ESC doesn't work.
 
 `:q` you'll see a colon, type q then press ENTER, to exit this mode.
 
-## Links
+## Related Links
 [ Vim Survival Guide ]( https://www.fusionbox.com/blog/detail/vim-survival-guide/609/ )
 
 [Learning Vim in 2014: Vim as Language](https://benmccormick.org/2014/07/02/062700.html)
+
+[Your problem with Vim is that you don't grok vi.](https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118)
 
 ## vim tutor
 in vim press Escape, then type:
