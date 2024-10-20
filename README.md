@@ -143,6 +143,43 @@ Which can be done with `c/foo<ENTER>`, aka change until the next "foo" word.
 In this way, vim provides a language to think in for editing text.
 And those thoughts can be directly actioned.
 
+### Terminology
+
+Some of the terms vim uses for basic ideas can seem odd.
+These names generally come from the keys that are used.
+So for example instead of cut and copy, there's delete and yank.
+
+
+| Concept         | Vim Name               | Keys       |
+|-----------------|------------------------|------------|
+| cut             | Delete                 | `d` `D`    |
+| copy            | Yank                   | `y` `Y`    |
+| paste           | Put                    | `p` `P`    |
+| edit            | Change                 | `c` `C`    |
+| edit            | Insert                 | `i` `I`    |
+| edit            | Append                 | `a` `A`    |
+| selection       | Visual                 | `v` `V`    |
+| overwrite       | Substitute             | `s` `S`    |
+| overwrite       | Replace                | `r` `R`    |
+| newline         | Open                   | `o` `O`    |
+| undo            | Undo                   | `u`        |
+| redo            | Redo                   | `Ctrl-r`   |
+| save            | Write                  | `:w`       |
+| quit            | Quit                   | `:q`       |
+| word            | Word                   | `w` `W`    |
+| word            | End of word            | `e` `E`    |
+| previous word   | Backwards word         | `b` `B`    |
+| find char       | Find char              | `f` `F`    |
+| find char       | Til char               | `t` `T`    |
+| next match      | Next                   | `n` `N`    |
+| navigation      | Go                     | `g` `G`    |
+| bookmark        | Mark                   | `m`        |
+
+The capitalized letter for a term has a few possible meanings:
+- reversing the direction
+- operating on a line
+- expanding the scope
+
 ### Motions and navigation
 
 Just moving around vim can be confusing at first.
