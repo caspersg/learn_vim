@@ -71,24 +71,40 @@ From other modes:
 
 ### The vim language
 
-The power of Normal mode is that actions are built using a basic grammar.
+The power of Normal mode is that actions are built using a simple grammar.
 
-`<optional verb><optional modifier><motion>`
+`<verb><noun>`
 
-eg 
+Verbs are things like `d` for delete, `y` for yank (copy), `c` for change.
 
-`w` means move to the start of the next word.
+Nouns (Motions) are things like `w` for word, `s` for sentence, `l` for line.
 
-`2w` means move 2 words.
+eg `dw` means delete to the start of the next word.
 
-`d2w` means delete two words.
+If you don't provide a verb, the verb is implicitly move. So these are often called motions.
 
-Verbs are things like `d` for delete, `y` for yank (copy), `c` for change, `u` for undo.
+`<noun>`
 
-Motions are things like `w` for word, `s` for sentence, `l` for line. Or `fp` for find the next "p" character.
-Motions can include modifiers, like numbers multiply the motions, or contextual like `a` for around
+eg `w` means move to the start of the next word.
 
-Motions can also be used without a verb, to just move around.
+A noun can be plural, by adding a count prefix.
+
+eq `2w` means move 2 words.
+
+eq `d2w` means delete two words.
+
+Motions can have more contextual like `a` for around
+eg `yap` means to copy around the current paragraph, including empty lines.
+
+Or they may require another parameter
+eg `dfp` means do delete until you find the next "p" character.
+
+Even basic navigation is treated as a noun.
+
+eg `c10j` means to change the next 10 lines down (`j` is the down key).
+
+So you could describe the grammar in more detail this way.
+`<optional verb><noun>` where noun is `<optional count><optional context><motion><optional parameter>`
 
 So as you learn more verbs and motions you can combine them with the ones you already know.
 And as you use them, you'll start to think in terms of these higher level actions.
