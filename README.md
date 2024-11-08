@@ -42,7 +42,7 @@ In vim to modify the next two words, you might:
 
 The `c` part switches modes, so you can type out the replacement text.
 The `2w` part indicates what text you want to modify.
-As you type out the above, vim waits until you've finished typing a whole command, then executes it all at once.
+As you type out the above, vim waits until you've finished typing a whole action, then executes it all at once.
 It has a specific grammar for actions, so it doesn't need to wait a specified amount of time or for an ENTER.
 
 I chose this example as there's the same number of key presses for both approaches.
@@ -75,9 +75,9 @@ The power of Normal mode is that actions are built using a simple grammar.
 
 `<verb><noun>`
 
-Verbs are things like `d` for delete, `y` for yank (copy), `c` for change.
+Verbs are things like `d` for delete, `y` for yank (copy), `c` for change. They are often called operators.
 
-Nouns (Motions) are things like `w` for word, `s` for sentence, `l` for line.
+Nouns are things like `w` for word, `s` for sentence, `l` for line.
 
 eg `dw` means delete to the start of the next word.
 
@@ -93,30 +93,50 @@ eq `2w` means move 2 words.
 
 eq `d2w` means delete two words.
 
-Motions can have more contextual like `a` for around
-eg `yap` means to copy around the current paragraph, including empty lines.
+You can also add a count to the verb.
 
-Or they may require another parameter
-eg `dfp` means do delete until you find the next "p" character.
+eg `2dw` means delete word twice. Which does the same thing as `d2w`.
 
-Even basic navigation is treated as a noun.
+Basic navigation is treated as a noun.
 
 eg `c10j` means to change the next 10 lines down (`j` is the down key).
 
-So you could describe the grammar in more detail this way.
-`<optional verb><noun>` where noun is `<optional count><optional context><motion><optional parameter>`
+Some motions may require a parameter. In this example `fp` is the motion.
 
-So as you learn more verbs and motions you can combine them with the ones you already know.
+eg `dfp` means do delete until you find the next "p" character.
+
+Some nouns need additional context, like `a` for around. They don't move the cursor, so they're called text objects.
+Because they don't move the cursor, they can be done from any part of that context. In this example `ap` is the text object.
+
+eg `yap` means to copy around the current paragraph, both above and below the cursor.
+
+Some motions also have related text objects.
+
+eg `daw` deletes around the word, while `dw` deletes the rest of the word.
+
+So you could describe the grammar in more detail this way.
+
+`<count><optional verb><count><motion>`
+or
+`<count><verb><count><text_object>`
+
+The count is always optional, and it's up to personal preference where you want to use it.
+You can even multiply them.
+
+eg `2d3w` will delete the next 6 words.
+
+As you learn more verbs and motions you can combine them with the ones you already know.
 And as you use them, you'll start to think in terms of these higher level actions.
 
 So you might want to modify the text inside the next set of parentheses.
-Which can be done with `ci(`, aka change inside parentheses.
+Which can be done with `ci(`, change inside parentheses.
 
-Or you might want to copy the current block of code, and paste it at the bottom of the file.
-Which can be done with `yapGp`, aka yank around paragraph, go to the end of the file, paste.
+You combine separate actions by just typing them one after the other.
+So say you want to move the current block to the end of the file.
+Which can be done with `dapGp`, delete around paragraph, go to the end of the file, paste.
 
 Or you might want to change all the text up to a certain word.
-Which can be done with `c/foo<ENTER>`, aka change until the next "foo" word.
+Which can be done with `c/foo<ENTER>`, change until the next "foo" word.
 
 In this way, vim provides a whole language to think in for editing text.
 
@@ -181,6 +201,10 @@ There's all kinds of other ways to move around.
 
 `%` to move to the matching bracket/braces/parens.
 
+`*` find the next occurrence of the current word.
+
+`/` search using regex.
+
 ## Other modes
 
 Here are the basics for switching between modes.
@@ -220,6 +244,9 @@ From Normal mode: `/` to switch to Search mode.
 Then type the text you want to search for, and press ENTER.
 then use `n` to find the next match, or `N` to find the previous match.
 
+While search can be seen as a mode, it also counts as a motion.
+So `y/bar<ENTER>` will yank until the next match for 'bar'
+
 ### Visual
 Used for selecting text.
 This allows you to use the same keys as Normal mode.
@@ -227,7 +254,14 @@ In other editors, you use the mouse to drag and select things, or hold down shif
 
 From Normal mode: `v` to switch to visual mode by character.
 
-Then navigate around with Normal mode to select text. Then perform a command like `d` for delete.
+Then navigate around with Normal mode to select text. Then perform a verb like `d` for delete.
+
+So the grammar for visual mode is a little different.
+
+`v<normal mode motions><verb>`
+
+Any number of motions can be used while in visual mode.
+Even `/` search can be used.
 
 ### More ways to switch modes
 
