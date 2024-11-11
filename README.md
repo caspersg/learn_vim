@@ -41,14 +41,13 @@ In vim to modify the next two words, you might:
 - then press ESC to switch back to Normal mode
 
 The `c` part switches modes, so you can type out the replacement text.
-The `2w` part indicates what text you want to modify.
-As you type out the above, vim waits until you've finished typing a whole action, then executes it all at once.
-It has a specific grammar for actions, so it doesn't need to wait a specified amount of time or for an ENTER.
+The `2w` part indicates what text you want to modify. In this case 2 words.
+
+As you type out the above, vim waits until you've finished typing the whole action, then executes it all at once.
+It has a specific grammar for actions, so it doesn't need to wait for an ENTER, or wait a specified amount of time.
 
 I chose this example as there's the same number of key presses for both approaches.
-So it shows the main difference with the vim approach:
-
-You type a sequence of individual keys, rather than holding keys down in combination.
+So it shows the main difference with the vim approach: You type a sequence of individual keys, rather than holding keys down in combination.
 
 I find this more comfortable, not necessarily any faster.
 There are combinations using CTRL in vim, but they're less common.
@@ -71,21 +70,49 @@ From other modes:
 
 ### The vim language
 
-The power of Normal mode is that actions are built using a simple grammar.
+The power of Normal mode is that actions are built using a simple grammar. 
 
 `<verb><noun>`
 
 Verbs are things like `d` for delete, `y` for yank (copy), `c` for change. They are often called operators.
 
-Nouns are things like `w` for word, `s` for sentence, `l` for line.
+Nouns are things like `w` for word, `$` for end of line, `}` for paragraph.
 
 eg `dw` means delete to the start of the next word.
+
+So instead of remembering separate shortcuts for each action, you need to combine separate nouns and verbs.
+As you learn more verbs and motions you can combine them with the ones you already know.
+And as you use them, you'll start to think in terms of these higher level actions.
+
+In this way, vim provides a whole language to think in for editing text.
+And those thoughts can be directly actioned.
+
+#### More Examples
 
 If you don't provide a verb, the verb is implicitly move. So these are often called motions.
 
 `<noun>`
 
 eg `w` means move to the start of the next word.
+
+Some motions may require a parameter. In this example `fp` is the motion.
+
+eg `dfp` means do delete until you find the next "p" character.
+
+Some nouns need additional context, like `a` for around or `i` for inside. They don't move the cursor, so they're called text objects.
+Because they don't move the cursor, they can be done from any part within that context. In this example `ap` is the text object.
+
+eg `yap` means to copy around the current paragraph, both above and below the cursor.
+
+Some motions also have related text objects.
+
+eg `daw` deletes around the word, while `dw` deletes the rest of the word.
+
+You can combine separate actions by just typing them one after the other.
+So you can move the current block to the end of the file with `dapGp` ie delete around paragraph `dap`, go to the end of the file `G`, then paste `p`.
+
+
+#### Counts
 
 A noun can be plural, by adding a count prefix.
 
@@ -101,19 +128,6 @@ Basic navigation is treated as a noun.
 
 eg `c10j` means to change the next 10 lines down (`j` is the down key).
 
-Some motions may require a parameter. In this example `fp` is the motion.
-
-eg `dfp` means do delete until you find the next "p" character.
-
-Some nouns need additional context, like `a` for around. They don't move the cursor, so they're called text objects.
-Because they don't move the cursor, they can be done from any part of that context. In this example `ap` is the text object.
-
-eg `yap` means to copy around the current paragraph, both above and below the cursor.
-
-Some motions also have related text objects.
-
-eg `daw` deletes around the word, while `dw` deletes the rest of the word.
-
 So you could describe the grammar in more detail this way.
 
 `<count><optional verb><count><motion>`
@@ -125,22 +139,19 @@ You can even multiply them.
 
 eg `2d3w` will delete the next 6 words.
 
-As you learn more verbs and motions you can combine them with the ones you already know.
-And as you use them, you'll start to think in terms of these higher level actions.
 
-So you might want to modify the text inside the next set of parentheses.
-Which can be done with `ci(`, change inside parentheses.
+#### Registers
 
-You combine separate actions by just typing them one after the other.
-So say you want to move the current block to the end of the file.
-Which can be done with `dapGp`, delete around paragraph, go to the end of the file, paste.
+Instead of a single clipboard, vim has multiple registers.
+This works for yank (aka copy), delete (aka cut), and paste.
 
-Or you might want to change all the text up to a certain word.
-Which can be done with `c/foo<ENTER>`, change until the next "foo" word.
+`"<register><y or d><noun>`
+or
+`"<register><optional count>p`
 
-In this way, vim provides a whole language to think in for editing text.
+So you can copy the next 2 words into register `a` with `"ay2w`.
 
-And those thoughts can be directly actioned.
+Or paste from register `z` twice with `"z2p`
 
 ### Terminology
 
@@ -204,6 +215,28 @@ There's all kinds of other ways to move around.
 `*` find the next occurrence of the current word.
 
 `/` search using regex.
+
+### Text Objects
+
+Text objects are made up of either `a` (for around) or `i` (for inside), and the target of that context.
+
+For these `a`/`i` either includes or excludes whitespace
+
+`w` word
+
+`p` paragraph
+
+`s` sentence
+
+For these `a`/`i` either includes or excludes the tags, brackets or quotes.
+
+`t` XML or HTML tags
+
+`(` `{` `[` `<` brackets and braces
+
+`` ` `` `"` `'` quotes
+
+eg `da"` will delete the quotes and the contents of `"an example "`, while `di"` will leave the quotes empty.
 
 ## Other modes
 
